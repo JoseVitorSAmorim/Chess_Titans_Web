@@ -1,25 +1,40 @@
-name: Testes Automatizados
+name: Deploy do Xadrez 3D para o GitHub Pages
 
-# Evento que dispara a pipeline
 on:
+  # Dispara automaticamente quando houver commit na branch main
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
-# Conjunto de tarefas
+  # PERMITE DISPARAR O DEPLOY MANUALMENTE PELO GITHUB
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest # Runner utilizado
-
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
     steps:
-      - name: Baixar codigo fonte
+      - name: Baixar código fonte
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+      - name: Configurar Pages
+        uses: actions/configure-pages@v4
 
-      - name: Instalar dependencias e rodar testes
-        run: |
-          npm ci
-          npm test
+      - name: Enviar artefatos
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Fazer Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

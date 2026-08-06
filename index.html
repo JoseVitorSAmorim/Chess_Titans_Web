@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Chess Titans 3D</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+</head>
+<body>
+
+    <div id="start-menu" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Chess Titans 3D</h2>
+            
+            <div class="menu-group">
+                <label for="mode-select">Modo de Jogo:</label>
+                <select id="mode-select">
+                    <option value="cpu">Jogador vs IA (CPU)</option>
+                    <option value="pvp">Jogador vs Jogador (Local)</option>
+                </select>
+            </div>
+
+            <div class="menu-group" id="difficulty-group">
+                <label for="difficulty-select">Dificuldade da IA:</label>
+                <select id="difficulty-select">
+                    <option value="easy">Fácil</option>
+                    <option value="medium" selected>Médio</option>
+                    <option value="hard">Difícil</option>
+                </select>
+            </div>
+
+            <button id="start-btn" class="btn-start">Iniciar Jogo</button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="top-bar">
+            <div id="status">Aguardando início...</div>
+            <button id="menu-btn" class="btn-menu">Novo Jogo</button>
+        </div>
+
+        <div class="game-layout">
+            <div id="game3d-container"></div>
+
+            <div class="side-panel">
+                <h3>Peças Capturadas</h3>
+                
+                <div class="capture-box">
+                    <span class="box-title">Capturas Brancas:</span>
+                    <div id="captured-by-white" class="pieces-list"></div>
+                </div>
+
+                <div class="capture-box">
+                    <span class="box-title">Capturas Pretas:</span>
+                    <div id="captured-by-black" class="pieces-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls-hint">🎯 Clique Esquerdo: Selecionar e Mover | ⌨️ Setinhas (← → ↑ ↓): Girar Câmera | 🔍 Scroll: Zoom</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

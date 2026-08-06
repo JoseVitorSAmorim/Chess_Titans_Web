@@ -1,0 +1,25 @@
+name: Testes Automatizados
+
+# Evento que dispara a pipeline
+on:
+  push:
+    branches: [ "main" ]
+
+# Conjunto de tarefas
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest # Runner utilizado
+
+    steps:
+      - name: Baixar codigo fonte
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias e rodar testes
+        run: |
+          npm ci
+          npm test
